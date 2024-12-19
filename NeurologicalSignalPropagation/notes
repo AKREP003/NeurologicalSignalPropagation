@@ -1,0 +1,16 @@
+a function to predict the structure of neurons determined by the genetic encodings
+for a given neurologic structure and given state a function to predict activity
+
+Ligand gated channels, Voltage gated channels, Tension gated channels
+
+Nernst equation,  Goldman equation
+
+ i = g(- Eion + Vm) | driving force = Vm - E
+
+Equalevent circuit model
+
+Icl- + Ina+ + IK+ = 0
+
+depolarization = injection of current
+
+NeuroPhysiology
