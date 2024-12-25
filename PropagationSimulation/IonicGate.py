@@ -7,12 +7,19 @@ RESTING_VOLTAGE = [-90, -80]  # Can be updated depending on the system
 
 @dataclass
 class Gate:
-    InSelectivity: List[int]  # Rate at which ions move in
-    ExSelectivity: List[int]  # Rate at which ions move out
-    InGradienceLength: float  # The gradient length for inward movement
-    ExGradienceLength: float  # The gradient length for outward movement
+    def __init__(self, InSelectivity: List[int],
+                 ExSelectivity: List[int],
+                 InGradienceLength: float,
+                 ExGradienceLength: float):
 
-    def getConductenceChange(self, VoltM: float):
+        self.InSelectivity = InSelectivity
+        self.ExSelectivity = ExSelectivity
+        self.InGradienceLength = InGradienceLength
+        self.ExGradienceLength = ExGradienceLength
+
+        self.Conductence = [0 for _ in RESTING_VOLTAGE]
+
+    def applyConductenceChange(self, VoltM: float):
         """
         Calculate the conductance change based on the voltage and selectivity for
         both inward and outward ions. The sum of inward and outward selectivity
@@ -37,4 +44,6 @@ class Gate:
                 # When the driving force is negative (hyperpolarization), ions are flowing outward
                 ConductenceChange[i] = (DrivingForce[i] / self.ExGradienceLength) * self.ExSelectivity[i]
 
-        return ConductenceChange
+        self.Conductence = list(map(sum, zip(self.Conductence, ConductenceChange)))
+
+        print(self.Conductence)
